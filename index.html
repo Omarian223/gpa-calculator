@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EBSU GPA Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f4f8; padding: 16px; }
+    h1, h2 { color: #0b6b3a; }
+    input, select { padding: 10px; margin: 4px 0; font-size: 16px; }
+    button { background: #0b6b3a; color: white; border: none; padding: 12px 16px; font-size: 16px; border-radius: 8px; margin-top: 8px; }
+    .unit { width: 110px; }
+  </style>
+</head>
+<body>
+  <h1>GPA Calculator</h1>
+  <div id="courses"></div>
+  <button onclick="addCourse()">Add course</button>
+  <button onclick="calculate()">Calculate GPA</button>
+  <h2 id="result"></h2>
+
+  <script>
+    function addCourse() {
+      var row = document.createElement("div");
+      row.innerHTML = '<input type="number" placeholder="Units" class="unit"> ' +
+        '<select class="grade">' +
+        '<option value="5">A</option><option value="4">B</option>' +
+        '<option value="3">C</option><option value="2">D</option>' +
+        '<option value="1">E</option><option value="0">F</option></select>';
+      document.getElementById("courses").appendChild(row);
+    }
+
+    function calculate() {
+      var units = document.querySelectorAll(".unit");
+      var grades = document.querySelectorAll(".grade");
+      var totalPoints = 0, totalUnits = 0;
+      for (var i = 0; i < units.length; i++) {
+        var u = Number(units[i].value);
+        totalPoints += u * Number(grades[i].value);
+        totalUnits += u;
+      }
+      var gpa = totalUnits ? (totalPoints / totalUnits).toFixed(2) : 0;
+      document.getElementById("result").innerText = "GPA: " + gpa;
+    }
+
+    addCourse(); addCourse(); addCourse();
+  </script>
+</body>
+</html>
